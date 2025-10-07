@@ -4,30 +4,30 @@ using namespace std;
 // ------------------- Base Class / Person class -------------------
 class Person {
 protected:
-    string name;
+    string name;                 // basic detaild of person
     int age;
 public:
-    void inputPerson() {
+    void inputPerson() {                              // input for details of person
         cout << "Enter Name : ";
         cin >> name;
         cout << "Enter Age: ";
         cin >> age;
     }
-    void displayPerson() {
+    void displayPerson() {     
         cout << "Name: " << name << ", Age: " << age;
     }
 };
 
 // ------------------- Student class inheritad with person class-------------------
-class Student : public Person {
+class Student : public Person {                 // Every student is person , so student class inherits the person class
 private:
     string rollNo;
     int n_sub;
-    string subjects[20];  // max 10 subjects
-    float marks[20];
+    string subjects[20];  // max 20 subjects
+    float marks[20];      // marks of each subject
 public:
     void inputStudent() {
-        inputPerson();
+        inputPerson();                          // details of student
         cout << "Enter Roll Number: ";
         cin >> rollNo;
         cout << "Enter number of subjects : ";
@@ -40,25 +40,25 @@ public:
         }
     }
 
-    float getTotalMarks() {
+    float getTotalMarks() {               // total marks of each student
         float total=0;
         for(int i=0;i<n_sub;i++) total += marks[i];
         return total;
     }
 
-    float getAverage(){
+    float getAverage(){                   // average marks of each student
          return getTotalMarks() / n_sub; 
     }
-
-    float getPercentage() {
+ 
+    float getPercentage() {               // percentage of each student
         return (getTotalMarks()/(n_sub * 100 )) * 100; 
     }
 
-    float getCGPA() {
+    float getCGPA() {                     // cgpa of each student
         return getAverage()/9.5;
     }
 
-    char getGrade(){
+    char getGrade(){                       // grade of each student
         float avg = getAverage();
         if(avg>=90) return 'A';
         else if(avg>=75) return 'B';
@@ -67,7 +67,7 @@ public:
         else return 'F';
     }
 
-    void displayStudent() {
+    void displayStudent() {                  // display the student marks and information
         displayPerson();
         cout << ", Roll No: " << rollNo << endl;
         cout << "Subjects and Marks:\n";
@@ -80,11 +80,11 @@ public:
 };
 
 // ------------------- ClassRoom -------------------
-class ClassRoom {
+class ClassRoom {                    // Class of Classroom which holds students
 private:
-    vector<Student> students;
+    vector<Student> students;        // creating a vector of students with Student class
 public:
-    void addStudents() {
+    void addStudents() {             // add students into classroom
         int n;
         cout << "Enter number of students in this class: ";
         cin >> n;
@@ -96,7 +96,7 @@ public:
         }
     }
 
-    void displayAllStudents() {
+    void displayAllStudents() {          // display all the students in classroom
         if(students.empty()) {
             cout << "No students in this class.\n"; 
             return; 
@@ -107,14 +107,14 @@ public:
         }
     }
 
-    void sortByTotalMarks() {
+    void sortByTotalMarks() {           // Sort the students based on total marks
         sort(students.begin(), students.end(), [](Student &a, Student &b){
             return a.getTotalMarks() > b.getTotalMarks();
         });
         cout << "Students sorted by total marks (highest to lowest).\n";
     }
 
-    void displayTopper() {
+    void displayTopper() {               // Get the details of topper based on total marks
         if(students.empty()){
             cout << "No students.\n";
             return;
@@ -128,11 +128,11 @@ public:
 };
 
 // ------------------- School -------------------
-class School {
+class School {                        // Class school consists of classrooms
 private:
-    ClassRoom classes[10]; // Standards 1 to 10
+    ClassRoom classes[10]; // assuming school having standards of 1 to 10
 public:
-    void addStudentsToClass(int standard) {
+    void addStudentsToClass(int standard) {   // adding student to class based on standard
         if(standard<1 || standard>10){
             cout << "Invalid standard.\n";
             return;
@@ -140,7 +140,7 @@ public:
         classes[standard-1].addStudents();
     }
 
-    void displayClass(int standard) {
+    void displayClass(int standard) {         //display stuents on class room
         if(standard<1 || standard>10){
             cout << "Invalid standard.\n";
             return;
@@ -171,9 +171,9 @@ int main() {
     int choice, num;
 
     while(true){
-        cout << "\n--- SCHOOL MANAGEMENT SYSTEM ---\n";
+        cout << "\n--- SCHOOL MANAGEMENT SYSTEM ---\n";   //Options for School Management System
         cout << "1. Add students to class\n";
-        cout << "2. Display all students of a class\n";
+        cout << "2. Display all students of a class\n"; 
         cout << "3. Sort class by highest total marks\n";
         cout << "4. Display topper of a class\n";
         cout << "5. Exit\n";
@@ -211,3 +211,4 @@ int main() {
 
     return 0;
 }
+
